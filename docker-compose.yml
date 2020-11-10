@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  app:
+    container_name: app
+    build: ./spring-boot-data-jpa-mysql
+    environment: 
+      - HOST=db
+    networks: 
+      - mi-red
+    restart: always
+    depends_on: 
+      - db
+  db:
+    container_name: db
+    image: "mariadb:latest"
+    environment: 
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=testdb
+    restart: always
+    networks: 
+      - mi-red
+  front:
+    container_name: front
+    ports: 
+      - 8080:8080
+    build: ./vue-js-client-crud
+    networks:
+      - mi-red
+    restart: always
+networks: 
+  mi-red:
