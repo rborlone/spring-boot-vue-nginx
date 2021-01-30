@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-deployment
+  labels:
+    app: front-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front-app
+  template:
+    metadata:
+      labels:
+        app: front-app
+    spec:
+      containers:
+      - name: front-app
+        image: us.gcr.io/proyecto-kubernetes-298501/front-app:latest
+        ports:
+        - containerPort: 8080

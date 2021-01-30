@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-deployment
+  labels:
+    app: spring-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spring-app
+  template:
+    metadata:
+      labels:
+        app: spring-app
+    spec:
+      containers:
+      - name: spring
+        env:
+          - name: DB_HOST
+            value: "10.26.128.3"
+          - name: DB_PORT
+            value: "3306"
+          - name: DB_NAME
+            value: "testdb"
+          - name: DB_USER
+            value: "root"
+          - name: DB_PASSWORD
+            value: "crM4fEuNj67gHy7j"
+        image: us.gcr.io/proyecto-kubernetes-298501/spring-app@sha256:3d69c34e6f122fd0babe8cf8ebdb00e1ad750a9f1f7179b88688586225a6c64a
+        ports:
+        - containerPort: 8080
